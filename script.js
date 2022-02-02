@@ -1,5 +1,5 @@
 /* SONGS LIST ========================================================= */
-const songsList = ["Aphex Twin - Rhubarb", "Evocativ feat Arch - Lost In a Dream", "Chris Isaak - Wicked Game", "AK - Deep Blue"];
+const songsList = ["Aphex Twin - Rhubarb", "Evocativ feat Arch - Lost In a Dream", "Autechre - 444", "God Is An Astronaut - Echoes", "AK - Deep Blue"];
 /* songs list --------------------------------------------------------- */
 
 
