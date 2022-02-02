@@ -66,7 +66,7 @@ function playstop() {
 const canvas = document.querySelector(".canvas");
 const canvasCtx = canvas.getContext('2d');
 
-var audioSource;
+var audioSource = audioCtx.createMediaElementSource(audio);
 var analyser;
 
 function visualizer() {
@@ -78,7 +78,7 @@ function visualizer() {
   // audio.load();
   // audio.play();
 
-  audioSource = audioCtx.createMediaElementSource(audio);
+  // audioSource = audioCtx.createMediaElementSource(audio);
   analyser = audioCtx.createAnalyser();
   audioSource.connect(analyser);
   analyser.connect(audioCtx.destination);
@@ -224,40 +224,29 @@ loop.addEventListener("click", function () {
 
 
 
-
-const trackLength = document.querySelector(".tracklength");
-const currentlength = document.querySelector(".currentlength");
-
-console.log(audio.volume);
-//currentlength.insertAdjacentText('afterbegin', audio.currentTime);
-
-
-
+/* VOLUME SECTION STARTS ==================================== */
 const volume = document.querySelector(".volume__range");
-volume.addEventListener("click", function () {
-console.log(volume.attributes.value);
+
+var gainNode = audioCtx.createGain();
+gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime); // vary from 0 to 1
+audioSource.connect(gainNode);
+gainNode.connect(audioCtx.destination);
+
+function setVolume(num) {
+  num = Math.floor(parseInt(num) / 100);
+  gainNode.gain.setValueAtTime(num, audioCtx.currentTime);
+  audioSource.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  console.log(gainNode.gain.volume);
+}
+
+volume.addEventListener("click", function(){
+  console.log(this.value);
+  setVolume(this.value);
 });
+/* volme section ends --------------------------------------- */
 
 /*
-var myAudio = document.querySelector('audio');
-var playButon = document.querySelector(".play__stop");
-
-
-// Create a MediaElementAudioSourceNode
-// Feed the HTMLMediaElement into it
-var source = context.createMediaElementSource(myAudio);
-
-
-// Создание "усилителя" звука. 
-var gainNode = context.createGain();
-gainNode.gain.value = 0.5 // изменяется от 0 до 1
-// Усилитель нужно вставить в цепочку между источником и получателем
-// connect the AudioBufferSourceNode to the gainNode
-// and the gainNode to the destination, so we can play the
-// music and adjust the volume using the mouse cursor
-source.connect(gainNode);
-gainNode.connect(context.destination);
-
 
 // начало воспроизведения 
 source.start(0);
