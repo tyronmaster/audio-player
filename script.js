@@ -1,5 +1,5 @@
 /* SONGS LIST ========================================================= */
-const songsList = ["Aphex Twin - Rhubarb", "Evocativ feat Arch - Lost In a Dream", "Chris Isaak - Wicked Game", "AK - Deep Blue"];
+const songsList = ["Aphex Twin - Rhubarb", "Evocativ feat Arch - Lost In a Dream", "Autechre - 444", "God Is An Astronaut - Echoes", "AK - Deep Blue"];
 /* songs list --------------------------------------------------------- */
 
 
@@ -226,24 +226,63 @@ loop.addEventListener("click", function () {
 
 /* VOLUME SECTION STARTS ==================================== */
 const volume = document.querySelector(".volume__range");
+const soundOn = document.querySelector(".sound-on");
+const soundOff = document.querySelector(".sound-off");
+const volumeButton = document.querySelector(".volume__sign");
+const volumeLevel = document.querySelector(".volume__level");
 
+volume.value = 50;
+audio.value = volume.value / 100;
+
+volumeButton.addEventListener("click", function() {
+  
+  this.classList.toggle("active");
+
+  this.blur();
+  
+  if (soundOff.classList.contains("invisible")) {
+    soundOn.classList.add("invisible");
+    soundOff.classList.remove("invisible");
+    audio.volume = 0;
+    volume.value = 0;
+  } else {
+    soundOn.classList.remove("invisible");
+    soundOff.classList.add("invisible");
+    audio.volume = 0.5;
+    volume.value = Math.floor(audio.volume * 100);
+  }
+  volumeLevel.textContent = volume.value;
+});
+
+volume.addEventListener("click", function () {
+  audio.volume = parseInt(this.value) / 100;
+  volumeButton.classList.remove("active");
+  soundOn.classList.remove("invisible");
+  soundOff.classList.add("invisible");
+
+  volumeLevel.textContent = volume.value;
+});
+
+
+/*
 var gainNode = audioCtx.createGain();
-gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime); // vary from 0 to 1
+gainNode.gain.value = 0.5; // vary from 0 to 1
 audioSource.connect(gainNode);
 gainNode.connect(audioCtx.destination);
 
 function setVolume(num) {
-  num = Math.floor(parseInt(num) / 100);
+  num = parseInt(num) / 100;
   gainNode.gain.setValueAtTime(num, audioCtx.currentTime);
   audioSource.connect(gainNode);
   gainNode.connect(audioCtx.destination);
-  console.log(gainNode.gain.volume);
+  console.log(gainNode.gain.value);
 }
 
 volume.addEventListener("click", function(){
   console.log(this.value);
   setVolume(this.value);
 });
+*/
 /* volme section ends --------------------------------------- */
 
 /*
