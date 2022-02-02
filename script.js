@@ -186,6 +186,11 @@ audio.addEventListener("loadeddata", function () {
 
 
 audio.addEventListener("ended", function (){
+  // if shuffle is .active
+  // then songindex = random(songslist.length)
+  // if loop is .active
+  // then songindex = songindex
+
   songIndex++;
   if (songIndex > songsList.length-1) {
   songIndex = 0;
