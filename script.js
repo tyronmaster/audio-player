@@ -1,5 +1,5 @@
 /* SONGS LIST ========================================================= */
-const songsList = ["Aphex Twin - Rhubarb", "Evocativ feat Arch - Lost In a Dream", "Autechre - 444", "God Is An Astronaut - Echoes", "AK - Deep Blue"];
+const songsList = ["AK - Deep Blue", "Aphex Twin - Rhubarb", "Evocativ feat Arch - Lost In a Dream", "Autechre - 444", "God Is An Astronaut - Echoes"];
 /* songs list --------------------------------------------------------- */
 
 
@@ -55,8 +55,6 @@ function playstop() {
     playerImage.src = "./assets/img/blankimage.jpg";
   }
 
-  
-  
 };
 /* play stop buttons section ends ---------------------------------------*/
 
@@ -147,8 +145,7 @@ nextButon.addEventListener("click", function () {
   loadTrack(songIndex);
   
   // remove focus from element
-  nextButon.blur();
- 
+  this.blur();
 });
 
 prevButton.addEventListener("click", function () {
@@ -159,7 +156,7 @@ prevButton.addEventListener("click", function () {
   loadTrack(songIndex);  
 
   // remove focus from element
-  prevButton.blur();
+  this.blur();
 });
 /* next prev buttons ------------------------------------------- */
 
@@ -172,6 +169,10 @@ progressBar.value = 0;
 
 progressBar.addEventListener("click", function () {
   audio.currentTime = parseInt(progressBar.value * audio.duration /100);
+});
+
+progressBar.addEventListener("wheel", function(e) {
+  e.preventDefault();
 });
 
 audio.addEventListener("timeupdate", function () {
@@ -254,15 +255,22 @@ volumeButton.addEventListener("click", function() {
   volumeLevel.textContent = volume.value;
 });
 
-volume.addEventListener("click", function () {
-  audio.volume = parseInt(this.value) / 100;
+function setVolume() {
+  audio.volume = parseInt(volume.value) / 100;
   volumeButton.classList.remove("active");
   soundOn.classList.remove("invisible");
   soundOff.classList.add("invisible");
 
   volumeLevel.textContent = volume.value;
+};
+
+volume.addEventListener("click", function () {
+  setVolume();
 });
 
+volume.addEventListener("wheel", function() {
+  setVolume();
+});
 
 /*
 var gainNode = audioCtx.createGain();
