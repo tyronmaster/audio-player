@@ -1,5 +1,5 @@
 /* SONGS LIST ========================================================= */
-const songsList = ["Aphex Twin - Rhubarb", "Evocativ feat Arch - Lost In a Dream", "Chris Isaak - Wicked Game", "AK - Deep Blue"];
+const songsList = ["AK - Deep Blue", "Aphex Twin - Rhubarb", "Evocativ feat Arch - Lost In a Dream", "Autechre - 444", "God Is An Astronaut - Echoes"];
 /* songs list --------------------------------------------------------- */
 
 
@@ -36,7 +36,7 @@ function playstop() {
     audio.play();
     visualizer();
     
-    songTitle.textContent = song;
+    songTitle.textContent = `${songIndex + 1} - ${song}`;
     
   }
   else {
@@ -55,8 +55,6 @@ function playstop() {
     playerImage.src = "./assets/img/blankimage.jpg";
   }
 
-  
-  
 };
 /* play stop buttons section ends ---------------------------------------*/
 
@@ -134,32 +132,46 @@ function timeParser(duration){
   return `${minutes}:${seconds}`;
 };
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 /* NEXT PREV  BUTTONS =================================== */
 const nextButon = document.querySelector(".next__track");
 const prevButton = document.querySelector(".prev__track");
 
 nextButon.addEventListener("click", function () {
-  songIndex++;
+  progressBar.value = 0;
+  if (shuffle.classList.contains("active")) {
+    songIndex = getRandomInt(songsList.length - 1);
+  } else {
+    songIndex++;
+  }
+  
   if (songIndex > songsList.length-1) {
   songIndex = 0;
   }
   loadTrack(songIndex);
   
   // remove focus from element
-  nextButon.blur();
- 
+  this.blur();
 });
 
 prevButton.addEventListener("click", function () {
-  songIndex--;
+  progressBar.value = 0;
+  if (shuffle.classList.contains("active")) {
+    songIndex = getRandomInt(songsList.length - 1);
+  } else {
+    songIndex--;
+  }
+
   if (songIndex < 0) {
     songIndex = songsList.length - 1;
   }
   loadTrack(songIndex);  
 
   // remove focus from element
-  prevButton.blur();
+  this.blur();
 });
 /* next prev buttons ------------------------------------------- */
 
@@ -174,6 +186,10 @@ progressBar.addEventListener("click", function () {
   audio.currentTime = parseInt(progressBar.value * audio.duration /100);
 });
 
+progressBar.addEventListener("wheel", function(e) {
+  e.preventDefault();
+});
+
 audio.addEventListener("timeupdate", function () {
   progress = (audio.currentTime / audio.duration) * 100;
   progressBar.value = progress;
@@ -186,7 +202,15 @@ audio.addEventListener("loadeddata", function () {
 
 
 audio.addEventListener("ended", function (){
-  songIndex++;
+  
+  if (shuffle.classList.contains("active")) {
+    songIndex = getRandomInt(songsList.length - 1);
+  } else if (loop.classList.contains("active")) {
+    songIndex = songIndex;
+  } else {
+    songIndex++;
+  }
+  
   if (songIndex > songsList.length-1) {
   songIndex = 0;
   }
@@ -202,6 +226,7 @@ const shuffle = document.querySelector(".shuffle");
 
 shuffle.addEventListener("click", function () {
   shuffle.classList.toggle("active");
+  loop.classList.remove("active");
 
   // remove focus from element
   shuffle.blur();
@@ -214,6 +239,7 @@ const loop = document.querySelector(".loop");
 
 loop.addEventListener("click", function () {
   loop.classList.toggle("active");
+  shuffle.classList.remove("active");
 
   // remove focus from element
   loop.blur();
@@ -226,24 +252,70 @@ loop.addEventListener("click", function () {
 
 /* VOLUME SECTION STARTS ==================================== */
 const volume = document.querySelector(".volume__range");
+const soundOn = document.querySelector(".sound-on");
+const soundOff = document.querySelector(".sound-off");
+const volumeButton = document.querySelector(".volume__sign");
+const volumeLevel = document.querySelector(".volume__level");
 
+volume.value = 50;
+audio.value = volume.value / 100;
+
+volumeButton.addEventListener("click", function() {
+  
+  this.classList.toggle("active");
+
+  this.blur();
+  
+  if (soundOff.classList.contains("invisible")) {
+    soundOn.classList.add("invisible");
+    soundOff.classList.remove("invisible");
+    audio.volume = 0;
+    volume.value = 0;
+  } else {
+    soundOn.classList.remove("invisible");
+    soundOff.classList.add("invisible");
+    audio.volume = 0.5;
+    volume.value = Math.floor(audio.volume * 100);
+  }
+  volumeLevel.textContent = volume.value;
+});
+
+function setVolume() {
+  audio.volume = parseInt(volume.value) / 100;
+  volumeButton.classList.remove("active");
+  soundOn.classList.remove("invisible");
+  soundOff.classList.add("invisible");
+
+  volumeLevel.textContent = volume.value;
+};
+
+volume.addEventListener("click", function () {
+  setVolume();
+});
+
+volume.addEventListener("wheel", function() {
+  setVolume();
+});
+
+/*
 var gainNode = audioCtx.createGain();
-gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime); // vary from 0 to 1
+gainNode.gain.value = 0.5; // vary from 0 to 1
 audioSource.connect(gainNode);
 gainNode.connect(audioCtx.destination);
 
 function setVolume(num) {
-  num = Math.floor(parseInt(num) / 100);
+  num = parseInt(num) / 100;
   gainNode.gain.setValueAtTime(num, audioCtx.currentTime);
   audioSource.connect(gainNode);
   gainNode.connect(audioCtx.destination);
-  console.log(gainNode.gain.volume);
+  console.log(gainNode.gain.value);
 }
 
 volume.addEventListener("click", function(){
   console.log(this.value);
   setVolume(this.value);
 });
+*/
 /* volme section ends --------------------------------------- */
 
 /*
