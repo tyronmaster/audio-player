@@ -36,7 +36,7 @@ function playstop() {
     audio.play();
     visualizer();
     
-    songTitle.textContent = song;
+    songTitle.textContent = `${songIndex + 1} - ${song}`;
     
   }
   else {
@@ -132,13 +132,21 @@ function timeParser(duration){
   return `${minutes}:${seconds}`;
 };
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 /* NEXT PREV  BUTTONS =================================== */
 const nextButon = document.querySelector(".next__track");
 const prevButton = document.querySelector(".prev__track");
 
 nextButon.addEventListener("click", function () {
-  songIndex++;
+  if (shuffle.classList.contains("active")) {
+    songIndex = getRandomInt(songsList.length - 1);
+  } else {
+    songIndex++;
+  }
+  
   if (songIndex > songsList.length-1) {
   songIndex = 0;
   }
@@ -149,7 +157,12 @@ nextButon.addEventListener("click", function () {
 });
 
 prevButton.addEventListener("click", function () {
-  songIndex--;
+  if (shuffle.classList.contains("active")) {
+    songIndex = getRandomInt(songsList.length - 1);
+  } else {
+    songIndex--;
+  }
+
   if (songIndex < 0) {
     songIndex = songsList.length - 1;
   }
@@ -187,12 +200,15 @@ audio.addEventListener("loadeddata", function () {
 
 
 audio.addEventListener("ended", function (){
-  // if shuffle is .active
-  // then songindex = random(songslist.length)
-  // if loop is .active
-  // then songindex = songindex
-
-  songIndex++;
+  
+  if (shuffle.classList.contains("active")) {
+    songIndex = getRandomInt(songsList.length - 1);
+  } else if (loop.classList.contains("active")) {
+    songIndex = songIndex;
+  } else {
+    songIndex++;
+  }
+  
   if (songIndex > songsList.length-1) {
   songIndex = 0;
   }
@@ -208,6 +224,7 @@ const shuffle = document.querySelector(".shuffle");
 
 shuffle.addEventListener("click", function () {
   shuffle.classList.toggle("active");
+  loop.classList.remove("active");
 
   // remove focus from element
   shuffle.blur();
@@ -220,6 +237,7 @@ const loop = document.querySelector(".loop");
 
 loop.addEventListener("click", function () {
   loop.classList.toggle("active");
+  shuffle.classList.remove("active");
 
   // remove focus from element
   loop.blur();
