@@ -141,6 +141,7 @@ const nextButon = document.querySelector(".next__track");
 const prevButton = document.querySelector(".prev__track");
 
 nextButon.addEventListener("click", function () {
+  progressBar.value = 0;
   if (shuffle.classList.contains("active")) {
     songIndex = getRandomInt(songsList.length - 1);
   } else {
@@ -157,6 +158,7 @@ nextButon.addEventListener("click", function () {
 });
 
 prevButton.addEventListener("click", function () {
+  progressBar.value = 0;
   if (shuffle.classList.contains("active")) {
     songIndex = getRandomInt(songsList.length - 1);
   } else {
