@@ -153,7 +153,7 @@ function setVolume() {
       soundOff.classList.remove("active");
     }
     audio.volume = parseInt(volumebar.value) / 100;
-    console.log(volumebar.value);
+    //console.log(volumebar.value);
 };
 /* volume section ----------------------------------------------- */
 
@@ -219,8 +219,6 @@ loop.addEventListener("click", function () {
 // create canvas context
 const canvas = document.querySelector(".canvas");
 const canvasCtx = canvas.getContext('2d');
-
-
 
 
 function visualizer() {
