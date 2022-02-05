@@ -70,7 +70,7 @@ function loadTrack(i){
         songImage.src = `./assets/img/${song}.jpg`;
       } */
 
-  songTitle.textContent = song;
+      songTitle.textContent = `Track 0${songIndex + 1} - ${song}`;
 
   //playstop();
 }
