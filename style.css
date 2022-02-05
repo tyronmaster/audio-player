@@ -73,7 +73,8 @@ body {
   min-width: 320px;
 }
 .wrapper {
-  min-height: 100%;
+  /*min-height: 100%;*/
+  height: 100vh;
   overflow: hidden;
   margin: 0 auto;
   display: flex;
@@ -88,8 +89,8 @@ body {
     linear-gradient(180deg, #011a3f 0%, #000a1a 100%);
 }
 .container {
-  width: 400px;
-  max-width: 800px;
+  width: 350px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 15px;
 }
@@ -126,14 +127,16 @@ body {
 }
 
 .screen {
-  width: 320px;
+  width: 350px;
   height: 550px;
   overflow: hidden;
   position: relative;
 }
 .player {
-  width: 320px;
-  height: 550px;
+  /*width: 320px;
+  height: 550px;*/
+  width: 100%;
+  height: 100%;
   background: linear-gradient(
     180deg,
     #132a67 14.62%,
@@ -374,7 +377,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
 /* PLAYLIST =================================================*/
 .playlist {
-  width: 320px;
+  width: 350px;
   height: 550px;
   background: linear-gradient(
     180deg,
@@ -388,7 +391,7 @@ input[type="range"]:focus::-moz-range-thumb {
   position: absolute;
   top: 0;
   z-index: 11;
-  right: -100%;
+  right: -150%;
   transition: 0.5s ease-in-out;
 }
 .playlist.active {
@@ -420,15 +423,45 @@ input[type="range"]:focus::-moz-range-thumb {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  overflow: hidden;
   cursor: pointer;
   transition: 1s;
+  position: relative;
 }
 .queue__item:last-child {
   border: none;
 }
+.queue__item:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: #33ccff;
+  opacity: 0.1;
+  transition: 0.5s;
+}
 .queue__item:hover .songtitle {
   color: #ffffff;
   transition: 1s;
+}
+.queue__item .songtitle {
+  max-width: 195px;
+}
+.queue__item.active .songtitle {
+  color: #ffffff;
+}
+.queue__item.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: #33ccff;
+  opacity: 0.1;
+  transition: 0.5s;
 }
 .item__cover {
   width: 80px;
@@ -463,7 +496,7 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 .playlist__title {
   text-transform: uppercase;
-  margin: 0 75px;
+  margin: 0 100px;
 }
 
 /* FOOTER SECTION =============================================*/
