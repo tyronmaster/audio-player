@@ -72,10 +72,12 @@ function loadTrack(i){
 
   songTitle.textContent = song;
 
-  playstop();
+  //playstop();
 }
 
-playButton.addEventListener("click", playstop);
+playButton.addEventListener("click", function() {
+  playstop();
+});
 
 function playstop() {
   playButton.classList.add("active");
@@ -110,6 +112,7 @@ nextButon.addEventListener("click", function () {
   songIndex = 0;
   }
   loadTrack(songIndex);
+  playstop();
   
   // remove focus from element
   this.blur();
@@ -126,6 +129,7 @@ prevButton.addEventListener("click", function () {
     songIndex = songsList.length - 1;
   }
   loadTrack(songIndex);  
+  playstop();
 
   // remove focus from element
   this.blur();
@@ -179,6 +183,7 @@ audio.addEventListener("ended", function (){
   songIndex = 0;
   }
   loadTrack(songIndex);
+  playstop();
 });
 /* progress bar -------------------------------------------------- */
 
