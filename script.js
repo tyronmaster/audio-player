@@ -160,11 +160,14 @@ function setVolume() {
 
 /* PROGRESS BAR ================================================== DONE */
 progressBar.addEventListener("click", function () {
-  audio.currentTime = parseInt(progressBar.value * audio.duration /100);
+  audio.currentTime = (parseInt(progressBar.value) * audio.duration / 100);
+  //console.log(progressBar.value);
 });
+/*
 progressBar.addEventListener("wheel", function(e) {
   e.preventDefault();
 });
+*/
 
 audio.addEventListener("timeupdate", function () {
   progress = (audio.currentTime / audio.duration) * 100;
@@ -264,6 +267,7 @@ function drawVisualiser(bufferLength, x, barWidth, barHeight, dataArray){
   }
 };
 /* visualizer ends ------------------------------------------ */
+
 
 
 
