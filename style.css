@@ -102,61 +102,6 @@ body {
   align-items: center;
   text-align: center;
 }
-.player {
-  width: 300px;
-  height: 550px;
-  background: linear-gradient(
-    180deg,
-    #132a67 14.62%,
-    #006eb8 45.91%,
-    #0d002b 89.42%
-  );
-  /* margin: 100px 0;*/
-  padding: 25px;
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  text-align: center;
-}
-
-.player__top {
-}
-.player__title {
-  width: 230px;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.top__text {
-  font-size: 12px;
-  line-height: 16px;
-}
-.track__title {
-  text-transform: uppercase;
-  margin-top: 5px;
-}
-.track__title.animation {
-  animation: moveText linear 20s 0s forwards infinite;
-}
-@keyframes moveText {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(-150%);
-  }
-}
-
-.player__menu {
-}
-.player__slider {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
 
 .button {
   cursor: pointer;
@@ -180,74 +125,112 @@ body {
   fill: #ffffff;
 }
 
-.player__image {
-  width: 168px;
-  height: 168px;
-  background: #33ccff;
-  border-radius: 50%;
-  margin: 12px 20px 25px 20px;
+.screen{
+  width: 320px;
+  height: 550px;
+  overflow: hidden;
   position: relative;
 }
-.player__image::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  border-radius: 50%;
-  background: none;
-  width: 100%;
-  height: 30px;
-  box-shadow: 0px 35px 20px -10px rgba(0, 0, 0, 0.75);
+.player {
+  width: 320px;
+  height: 550px;
+  background: linear-gradient(
+    180deg,
+    #132a67 14.62%,
+    #006eb8 45.91%,
+    #0d002b 89.42%
+  );
+
+  box-shadow: 0 0 100px rgba(0, 110, 185, 0.25);
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  text-align: center;
+  position: relative;
 }
-.player__image img {
+.player__image {
+  width: 100%;
+  height: 340px;
+  position: relative;
+}
+.image__container {
+  width: 100%;
+  height: 100%;
+}
+.image__container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
-
-/* MY VARIANT =============== */
-input[type="range"] {
+.canvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 10;
+  opacity: .75;
+}
+.player__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 210px;
+  width: 100%;
+}
+.back{
+  transform: rotate(180deg);
+}
+/* progressbar input*/ /* MY VARIANT =============== */
+.progressbar {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
   cursor: pointer;
   width: 100%;
-  /*margin: 0 10px;*/
-  padding: 0 10px;
+  height: 7px;
+  overflow: hidden;
   transition: 0.5s ease-in-out;
 }
-input[type="range"]::-webkit-slider-runnable-track {
-  background: #2497e3;
-  height: 3px;
-  border-radius: 2px;
+.progressbar::-webkit-slider-runnable-track {
+  background: rgba(128, 128, 128, 0.2);
+  height: 4px;
+  border-radius: 4px;
   margin: 5px 0;
 } /* margin helps to increase height of element. more convinient for mouse press*/
-input[type="range"]::-moz-range-track {
-  background: #2497e3;
-  height: 3px;
-  border-radius: 2px;
+.progressbar::-moz-range-track {
+  background: rgba(128, 128, 128, 0.2);
+  height: 7px;
+  border-radius: 4px;
   margin: 5px 0;
 } /* margin helps to increase height of element. more convinient for mouse press*/
-input[type="range"]::-webkit-slider-thumb {
+.progressbar::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 7px;
+  width: 0px;
   height: 7px;
-  border: 2px solid #33ccff;
+  border: none;
   border-radius: 50%;
   background: #2497e3;
-  margin-top: calc(3px / 2 - 7px / 2);
+  margin-top: calc(4px / 2 - 4px / 2);
+  box-shadow: -400px 0 0 400px #2497e3;
   transition: 0.5s ease-in-out;
 }
-input[type="range"]::-moz-range-thumb {
+.progressbar::-moz-range-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 7px;
+  width: 0px;
   height: 7px;
-  border: 2px solid #33ccff;
+  border: none;
   border-radius: 50%;
   background: #2497e3;
+  box-shadow: -400px 0 0 400px #2497e3;
   transition: 0.5s ease-in-out;
 }
 input[type="range"]:focus {
@@ -263,57 +246,6 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 /*end of MY VARIANT ------------------*/
 
-.player__volume {
-  padding: 15px 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.volume__sign svg {
-  /*display: none;*/
-}
-.volume__sign svg.active {
-  /*display: block;*/
-}
-.volume__range {
-  max-width: 120px;
-}
-.volume__level {
-  width: 30px;
-}
-.player__controls {
-  width: 100%;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.shuffle {
-}
-.prev__track {
-}
-.play__stop {
-}
-.play__button {
-}
-.pause__button {
-}
-.invisible {
-  display: none;
-}
-.next__track {
-}
-.loop {
-}
-.status__bar {
-  padding: 15px 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
 .time {
   /*padding: 0 10px;*/
   display: flex;
@@ -321,34 +253,220 @@ input[type="range"]:focus::-moz-range-thumb {
   justify-content: center;
   align-items: center;
 }
-.currentlength {
-  width: 40px;
-  text-align: left;
+.currenttime {
+  padding: 5px;
 }
-.timebar {
-  width: 150px;
+.duration {
+  padding: 5px;
 }
-.tracklength {
-  width: 40px;
-  text-align: right;
+.title__container {
+  width: 75%;
+  overflow: hidden;
 }
-.analyser {
-  height: 50px;
-  width: 250px;
+.songtitle {
+  text-transform: uppercase;
+  transition: 1s;
+  white-space: nowrap;
 }
-.canvas {
+.songtitle.animation {
+  animation: moveText linear 20s 0s forwards infinite;
+}
+@keyframes moveText {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+.maincontrols {
   width: 100%;
-  height: 100%;
+  padding: 15px 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
-/*
-.analyser img {
-  object-fit: cover;
-  height: 100%;
+.play svg {
+  display: none;
 }
-*/
-.playlist {
+.play svg.active {
+  display: block;
+}
+.features {
+  width: 100%;
+  padding: 10px 20px;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.volume__container{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.volume {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.volume svg {
+  display: none;
+  margin: 0 0 0 5px;
+}
+.volume svg.active{
+  display: block;
+}
+.volumebar {
+  transform: rotate(180deg);
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100px;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0;
+  display: none;
+  transition: 1s;
+}
+.volumebar.active {
+  opacity: 1;
+  display: block;
+  transition: 1s;
+}
+.volumebar::-webkit-slider-runnable-track {
+  background: rgba(128, 128, 128, 0.2);
+  height: 20px;
+  border-radius: 10px;
+} /* margin helps to increase height of element. more convinient for mouse press*/
+.volumebar::-moz-range-track {
+  background: rgba(128, 128, 128, 0.2);
+  height: 20px;
+  border-radius: 10px;
+}
+.volumebar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: #2497e3;
+  margin-top: calc(4px / 2 - 4px / 2);
+  box-shadow: -400px 0 0 400px #2497e3;
+  transition: 0.5s ease-in-out;
+}
+.volumebar::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: #2497e3;
+  box-shadow: -400px 0 0 400px #2497e3;
+  transition: 0.5s ease-in-out;
 }
 
+/* PLAYLIST =================================================*/
+.playlist {
+  width: 320px;
+  height: 550px;
+  background: linear-gradient(
+    180deg,
+    #132a67 14.62%,
+    #006eb8 45.91%,
+    #0d002b 89.42%
+  );
+  text-align: center;
+  overflow: hidden;
+  
+  position: absolute;
+  top: 0;
+  z-index: 11;
+  right: -100%;
+  transition: .5s ease-in-out;
+}
+.playlist.active {
+  right: 0;
+}
+.queue {
+  height: 460px;
+  width: 100%;
+  padding: 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.queue::-webkit-scrollbar {
+  width: 7px;
+  background: rgba(128, 128, 128, 0.2);
+}
+.queue {
+  scrollbar-width: thin;
+  scrollbar-color: #2497e3 #132a67;
+}
+.queue::-webkit-scrollbar-thumb {
+  /*background: #2497e3;*/
+  background: #2497e3;
+}
+.queue__item {
+  width: 100%;
+  border-bottom: 1px solid #006eb8;
+  padding: 10px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  transition: 1s;
+}
+.queue__item:last-child {
+  border: none;
+}
+.queue__item:hover .songtitle {
+  color: #ffffff;
+  transition: 1s;
+}
+.item__cover {
+  width: 80px;
+  height: 80px;
+  margin-right: 15px;
+  overflow: hidden;
+  position: relative;
+}
+.item__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.item__cover svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.item__cover .play svg {
+  display: block;
+}
+.playlistmenu {
+  padding: 0 25px;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 1px solid #006eb8;
+}
+.playlist__title {
+  text-transform: uppercase;
+  margin: 0 75px;
+}
+
+/* FOOTER SECTION =============================================*/
 .footer {
   height: 90px;
   width: 100%;
