@@ -34,6 +34,7 @@ volume.addEventListener("click", () => {
     volumebar.classList.toggle("active");
 });
 
+
 /* navigation setion ends ----------------------------------------- */
 
 /* CREATE AUDIO =================================================== */
@@ -178,6 +179,7 @@ audio.addEventListener("loadeddata", function () {
   durationTime.textContent = timeParser(audio.duration);
 });
 audio.addEventListener("ended", function (){
+  
   if (shuffle.classList.contains("active")) {
     songIndex = getRandomInt(songsList.length - 1);
   } else if (loop.classList.contains("active")) {
@@ -216,7 +218,20 @@ loop.addEventListener("click", function () {
 });
 /* loop button ends ----------------------------------------- */
 
+/* PLAYLIST ACTIONS ========================================== */
+const playlistItems = [...document.querySelectorAll(".queue__item")];
+console.log(playlistItems);
 
+playlistItems.forEach( function(item, index) {
+  item.classList.remove("active");
+  item.addEventListener("click", function() {
+  item.classList.add("active");
+  songIndex = index;
+  loadTrack(songIndex);
+  playstop();
+});
+});
+/* playlist actions ------------------------------------------ */
 
 /* VISUALIZER ========================================== */
 // create canvas context
@@ -227,8 +242,8 @@ const canvasCtx = canvas.getContext('2d');
 function visualizer() {
 
   var audioCtx = new AudioContext();
-var audioSource = audioCtx.createMediaElementSource(audio);
-var analyser;
+  var audioSource = audioCtx.createMediaElementSource(audio);
+  var analyser;
 
   analyser = audioCtx.createAnalyser();
   audioSource.connect(analyser);
