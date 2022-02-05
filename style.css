@@ -200,8 +200,8 @@ body {
 }
 .progressbar::-webkit-slider-runnable-track {
   background: rgba(128, 128, 128, 0.2);
-  height: 4px;
-  border-radius: 4px;
+  height: 7px;
+  /*border-radius: 4px;*/
   margin: 5px 0;
 } /* margin helps to increase height of element. more convinient for mouse press*/
 .progressbar::-moz-range-track {
