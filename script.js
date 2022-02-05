@@ -1,9 +1,9 @@
 /* SONGS LIST ========================================================= */
-const songsList = ["ak - deep blue", 
-                    "aphex twin - rhubarb", 
-                    "evocativ feat arch - lost in a dream", 
+const songsList = ["AK - Deep Blue", 
+                    "Aphex Twin - Rhubarb", 
+                    "Evocativ feat Arch - Lost In a Dream", 
                     "Autechre - 444", 
-                    "god is an astronaut - echoes"];
+                    "God Is An Astronaut - Echoes"];
 /* songs list --------------------------------------------------------- */
 
 /* NAVIGATION ACTIONS ====================================== */
