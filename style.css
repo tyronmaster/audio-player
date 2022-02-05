@@ -174,7 +174,7 @@ body {
   width: 100%;
   height: 100px;
   z-index: 10;
-  opacity: .5;
+  opacity: .75;
 }
 .player__content {
   display: flex;
@@ -183,6 +183,9 @@ body {
   align-items: center;
   max-height: 210px;
   width: 100%;
+}
+.back{
+  transform: rotate(180deg);
 }
 /* progressbar input*/ /* MY VARIANT =============== */
 .progressbar {
@@ -263,6 +266,7 @@ input[type="range"]:focus::-moz-range-thumb {
 .songtitle {
   text-transform: uppercase;
   transition: 1s;
+  white-space: nowrap;
 }
 .songtitle.animation {
   animation: moveText linear 20s 0s forwards infinite;
@@ -296,6 +300,11 @@ input[type="range"]:focus::-moz-range-thumb {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+}
+.volume__container{
+  display: flex;
+  flex-direction: row-reverse;
   align-items: center;
 }
 .volume {
