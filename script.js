@@ -1,9 +1,9 @@
 /* SONGS LIST ========================================================= */
-const songsList = ["AK - Deep Blue", 
-                    "Aphex Twin - Rhubarb", 
-                    "Evocativ feat Arch - Lost In a Dream", 
+const songsList = ["ak - deep blue", 
+                    "aphex twin - rhubarb", 
+                    "evocativ feat arch - lost in a dream", 
                     "Autechre - 444", 
-                    "God Is An Astronaut - Echoes"];
+                    "god is an astronaut - echoes"];
 /* songs list --------------------------------------------------------- */
 
 /* NAVIGATION ACTIONS ====================================== */
@@ -47,7 +47,7 @@ const currentTime = document.querySelector(".currenttime");
 const durationTime = document.querySelector(".duration");
 
 window.onload = function() {
-  loadTrack(getRandomInt(songsList.length-1));
+  loadTrack(songIndex);
   playButton.classList.remove("active");
   songTitle.textContent = "Press PLAY to start";
 }
@@ -141,7 +141,7 @@ prevButton.addEventListener("click", function () {
 /* VOLUME SECTION ============================================ DONE */
 // set volume level according to input value
 volumebar.addEventListener("click", setVolume);
-volumebar.addEventListener("wheel",  setVolume);
+volumebar.addEventListener("wheel", setVolume);
 
 function setVolume() {
   volumebar.focus();
@@ -153,6 +153,7 @@ function setVolume() {
       soundOff.classList.remove("active");
     }
     audio.volume = parseInt(volumebar.value) / 100;
+    console.log(volumebar.value);
 };
 /* volume section ----------------------------------------------- */
 
@@ -214,23 +215,20 @@ loop.addEventListener("click", function () {
 
 
 
-
-
-
-
-
-
-
 /* VISUALIZER ========================================== */
 // create canvas context
 const canvas = document.querySelector(".canvas");
 const canvasCtx = canvas.getContext('2d');
 
-var audioCtx = new AudioContext();
+
+
+
+function visualizer() {
+
+  var audioCtx = new AudioContext();
 var audioSource = audioCtx.createMediaElementSource(audio);
 var analyser;
 
-function visualizer() {
   analyser = audioCtx.createAnalyser();
   audioSource.connect(analyser);
   analyser.connect(audioCtx.destination);
