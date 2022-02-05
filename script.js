@@ -1,9 +1,9 @@
 /* SONGS LIST ========================================================= */
-const songsList = ["ak - deep blue", 
-                    "aphex twin - rhubarb", 
-                    "evocativ feat arch - lost in a dream", 
+const songsList = ["AK - Deep Blue", 
+                    "Aphex Twin - Rhubarb", 
+                    "Evocativ feat Arch - Lost In a Dream", 
                     "Autechre - 444", 
-                    "god is an astronaut - echoes"];
+                    "God Is An Astronaut - Echoes"];
 /* songs list --------------------------------------------------------- */
 
 /* NAVIGATION ACTIONS ====================================== */
@@ -70,7 +70,7 @@ function loadTrack(i){
         songImage.src = `./assets/img/${song}.jpg`;
       } */
 
-  songTitle.textContent = song;
+      songTitle.textContent = `Track 0${songIndex + 1} - ${song}`;
 
   //playstop();
 }
@@ -153,7 +153,7 @@ function setVolume() {
       soundOff.classList.remove("active");
     }
     audio.volume = parseInt(volumebar.value) / 100;
-    console.log(volumebar.value);
+    //console.log(volumebar.value);
 };
 /* volume section ----------------------------------------------- */
 
@@ -219,8 +219,6 @@ loop.addEventListener("click", function () {
 // create canvas context
 const canvas = document.querySelector(".canvas");
 const canvasCtx = canvas.getContext('2d');
-
-
 
 
 function visualizer() {
